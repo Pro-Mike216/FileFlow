@@ -26,13 +26,14 @@ def file_organizer(folder_path):
         Pictures.mkdir(exist_ok=True)
         
         others.mkdir(exist_ok=True)
-
-        Picture = [".jpg",".jpeg",".png",".gif",".bmp",".svg"]
-        Video =[".mp4",".mov",".avi",".mkv"]
-        Document =[".pdf",".docx",".doc",".txt",".xlsx",".pptx"]
-        Code =[".py",".js",".html",".css",".c",".cpp",".java"]
-        Audio =[".mp3",".wav",".aac",".flac"]
-        Archivess =[".zip",".rar",".tar",".gz"]
+        Category={
+        "Picture" : [".jpg",".jpeg",".png",".gif",".bmp",".svg"],
+        "Video" :[".mp4",".mov",".avi",".mkv"],
+        "Document" :[".pdf",".docx",".doc",".txt",".xlsx",".pptx"],
+        "Code" :[".py",".js",".html",".css",".c",".cpp",".java"],
+        "Audio" :[".mp3",".wav",".aac",".flac"],
+        "Archivess" :[".zip",".rar",".tar",".gz"]
+        }
         # use os.walk() for recursive search 
         for root,dirs,files in os.walk(folder_path):
             # dirs and files are going to be lists of folders and files in that root respectively . we want to remove our folders from dirs
@@ -42,21 +43,22 @@ def file_organizer(folder_path):
                # create a path object for each file in files so it can be moved to our folders
                p=Path(root)/file
                try:
-                 if  p.suffix.lower() in Picture :
+                 if  p.suffix.lower() in Category["Picture"] :
                     shutil.move(str(p),str(Pictures))
-                 elif p.suffix.lower() in Video :
+                 elif p.suffix.lower() in Category['Video'] :
                     shutil.move(str(p),str(Videos))
-                 elif  p.suffix.lower() in Document:
+                 elif  p.suffix.lower() in Category['Document']:
                     shutil.move(str(p),str(Documents))
-                 elif  p.suffix.lower() in Code:
+                 elif  p.suffix.lower() in Category['Code']:
                     shutil.move(str(p),str(Codes))
-                 elif  p.suffix.lower() in Audio:
+                 elif  p.suffix.lower() in Category['Audio']:
                     shutil.move(str(p),str(Audios)) 
-                 elif  p.suffix.lower() in Archivess:
+                 elif  p.suffix.lower() in Category['Archivess']:
                     shutil.move(str(p),str(Archives))
                  else :
                     shutil.move(str(p),str(others))
-               except: shutil.Error
+               except shutil.Error as error:
+                print(f'could not move file {file}:{error}')
                moves+=1
 
       # use os.walk and topdown to find folders and delete them using os.rmdir() ; it will delete only empty folders        
