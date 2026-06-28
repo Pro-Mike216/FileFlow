@@ -1,4 +1,3 @@
-Markdown
 # FileFlow
 
 A Python automation tool that organizes files into folders based on their file extensions.
@@ -38,3 +37,6 @@ Then enter the folder path you want to organize.
 - Add duplicate file handling
 - Add command-line arguments
 - Add a graphical interface
+![Before Screenshort](images/BEFORE.png)
+![Running Screenshort](images/RUNNING.png)
+![After Screenshort](images/AFTER.png)
